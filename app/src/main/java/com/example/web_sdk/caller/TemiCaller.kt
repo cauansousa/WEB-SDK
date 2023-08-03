@@ -20,7 +20,8 @@ class TemiCaller {
     }
 
     fun unfollowCaller() {
-        temiRobot.stopMovement()
+        val x = temiRobot.stopMovement()
+        return x
     }
 
 }

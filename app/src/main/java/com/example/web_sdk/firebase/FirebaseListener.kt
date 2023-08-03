@@ -17,21 +17,10 @@ class FirebaseListener : FirebaseMessagingService() {
 
         Log.d(TAG, "From: ${remoteMessage.from}")
 
-        remoteMessage.data.isNotEmpty().let {
-            Log.d(TAG, "Message data payload: " + remoteMessage.data)
+        if (remoteMessage.data.isNotEmpty()) {
+            remoteMessage.data.keys.forEach { key ->
 
-            if (remoteMessage.data.containsKey("speak")){
-                val text = remoteMessage.data["speak"]
-                temiCaller.speakCaller(text!!)
 
-            } else if (remoteMessage.data.containsKey("goto")) {
-                val locations = remoteMessage.data["goto"]
-                temiCaller.gotoCaller(locations!!)
-            }else if (remoteMessage.data.containsKey("follow")) {
-                if (remoteMessage.data["follow"].equals("true"))
-                    temiCaller.followCaller() else temiCaller.unfollowCaller()
-            } else {
-                Log.d(TAG, "Nothing here!")
             }
         }
     }

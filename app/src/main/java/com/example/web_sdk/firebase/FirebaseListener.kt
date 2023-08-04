@@ -1,8 +1,6 @@
 package com.example.web_sdk.firebase
 
-import android.content.Intent
 import android.util.Log
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.web_sdk.caller.TemiCaller
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -19,8 +17,14 @@ class FirebaseListener : FirebaseMessagingService() {
 
         if (remoteMessage.data.isNotEmpty()) {
             remoteMessage.data.keys.forEach { key ->
+                when(key){
 
+                    "goto" -> remoteMessage.data["goto"]?.let { temiCaller.gotoCaller(it) }
+                    "follow" -> remoteMessage.data["follow"]?.let { temiCaller.followCaller() }
+                    "unfollow" -> remoteMessage.data["unfollow"]?.let { temiCaller.unfollowCaller() }
+                    "speak" -> remoteMessage.data["speak"]?.let { temiCaller.speakCaller(it) }
 
+                }
             }
         }
     }

@@ -1,27 +1,68 @@
 package com.example.web_sdk.caller
 
+import com.example.web_sdk.response.RetrofitResponse
 import com.robotemi.sdk.Robot
 import com.robotemi.sdk.TtsRequest
+import com.robotemi.sdk.listeners.OnGoToLocationStatusChangedListener
 
-class TemiCaller {
+class TemiCaller: Robot.TtsListener, OnGoToLocationStatusChangedListener {
 
-    private var temiRobot: Robot = Robot.getInstance()
+    private val retrofitResponse = RetrofitResponse()
 
-    fun speakCaller(text: String) {
-        temiRobot.speak(TtsRequest.create(text, false))
+    private var temiRobot: Robot
+
+    private var ttsStatus = false
+    private var gotoStatus = false
+
+    init {
+        temiRobot = Robot.getInstance()
+        temiRobot.addTtsListener(this)
+        temiRobot.addOnGoToLocationStatusChangedListener(this)
     }
 
-    fun gotoCaller(location: String) {
+    fun speakCaller(text: String): Boolean {
+        temiRobot.speak(TtsRequest.create(text, false, TtsRequest.Language.IT_IT, true))
+        while (!ttsStatus) Thread.sleep(1000)
+        ttsStatus = false
+        Thread.sleep(1000)
+        retrofitResponse.sendCallback(text)
+        return true
+    }
+
+    fun gotoCaller(location: String): Boolean {
         temiRobot.goTo(location)
+        while (!gotoStatus) Thread.sleep(1000)
+        gotoStatus = false
+        Thread.sleep(1000)
+        retrofitResponse.sendCallback(location)
+        return true
     }
 
     fun followCaller() {
-        temiRobot.beWithMe()
+        return temiRobot.beWithMe()
     }
 
     fun unfollowCaller() {
-        val x = temiRobot.stopMovement()
-        return x
+        return temiRobot.stopMovement()
+    }
+
+    override fun onTtsStatusChanged(ttsRequest: TtsRequest) {
+        ttsStatus = when (ttsRequest.status) {
+                        TtsRequest.Status.COMPLETED -> { true }
+                        else -> { false }
+                    }
+    }
+
+    override fun onGoToLocationStatusChanged(
+        location: String,
+        status: String,
+        descriptionId: Int,
+        description: String
+    ) {
+        gotoStatus = when (status) {
+                        "complete" -> { true }
+                        else -> { false }
+                    }
     }
 
 }

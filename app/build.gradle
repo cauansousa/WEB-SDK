@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
     //Temi
-    implementation 'com.robotemi:sdk:1.131.3'
+    implementation 'com.robotemi:sdk:1.131.4'
     implementation 'androidx.core:core-ktx:+'
 
     //Retrofit

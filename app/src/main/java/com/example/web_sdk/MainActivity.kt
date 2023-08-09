@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myWebView = findViewById(R.id.my_webview)
-        updateUrl("http:192.168.15.29:8080/goto?token=dtoImyl5TJCISk6_FLKcDr:APA91bGD2ib5BZLdmK3zMeuaEyz3NtPdvm8J4PMoHa0zz3TMsOqiGllNe1_IKr4VpGQbaiDUyWRlkIbWJly_2uZ89FUvEgY-_x0ylsfn2QvasNeMvBTUbv1EBzmGHo74rgudOpA9DtxF")
+        updateUrl("http:192.168.15.29:8080/")
     }
     private fun updateUrl(url: String) {
         runOnUiThread {

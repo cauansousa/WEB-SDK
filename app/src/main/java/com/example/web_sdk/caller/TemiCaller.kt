@@ -38,13 +38,9 @@ class TemiCaller: Robot.TtsListener, OnGoToLocationStatusChangedListener {
         return true
     }
 
-    fun followCaller() {
-        return temiRobot.beWithMe()
-    }
+    fun followCaller() = temiRobot.beWithMe()
 
-    fun unfollowCaller() {
-        return temiRobot.stopMovement()
-    }
+    fun unfollowCaller() = temiRobot.stopMovement()
 
     override fun onTtsStatusChanged(ttsRequest: TtsRequest) {
         ttsStatus = when (ttsRequest.status) {

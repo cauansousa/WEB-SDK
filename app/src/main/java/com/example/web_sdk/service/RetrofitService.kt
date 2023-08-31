@@ -8,4 +8,7 @@ import retrofit2.http.Query
 interface RetrofitService {
     @GET("/responses")
     fun sendResponse(@Query("message") response: String): Call<ResponseBody>
+
+    @GET("/responses")
+    fun sendAval(@Query("message") response: String): Call<ResponseBody>
 }

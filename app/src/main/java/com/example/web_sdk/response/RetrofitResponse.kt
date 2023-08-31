@@ -32,4 +32,11 @@ class RetrofitResponse {
 
     }
 
+    fun sendAval(text: String) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.15.29:8080")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val apiService = retrofit.create(RetrofitService::class.java)
+
 }

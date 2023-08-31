@@ -9,6 +9,6 @@ interface RetrofitService {
     @GET("/responses")
     fun sendResponse(@Query("message") response: String): Call<ResponseBody>
 
-    @GET("/responses")
+    @GET("/aval")
     fun sendAval(@Query("message") response: String): Call<ResponseBody>
 }
